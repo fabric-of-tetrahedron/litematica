@@ -1,11 +1,11 @@
 package fi.dy.masa.litematica.mixin;
 
+import net.minecraft.network.packet.s2c.play.CustomPayloadS2CPacket;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.network.packet.s2c.play.ChunkDataS2CPacket;
 import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
 import net.minecraft.network.packet.s2c.play.UnloadChunkS2CPacket;
@@ -21,8 +21,8 @@ public abstract class MixinClientPlayNetworkHandler
     @Inject(method = "onChunkData", at = @At("RETURN"))
     private void litematica_onUpdateChunk(ChunkDataS2CPacket packet, CallbackInfo ci)
     {
-        int chunkX = packet.getChunkX();
-        int chunkZ = packet.getChunkZ();
+        int chunkX = packet.getX();
+        int chunkZ = packet.getZ();
         Litematica.debugLog("MixinClientPlayNetworkHandler#litematica_onUpdateChunk({}, {})", chunkX, chunkZ);
 
         if (Configs.Visuals.ENABLE_RENDERING.getBooleanValue() &&
@@ -40,8 +40,8 @@ public abstract class MixinClientPlayNetworkHandler
     {
         if (Configs.Generic.LOAD_ENTIRE_SCHEMATICS.getBooleanValue() == false)
         {
-            Litematica.debugLog("MixinClientPlayNetworkHandler#litematica_onChunkUnload({}, {})", packet.pos().x, packet.pos().z);
-            DataManager.getSchematicPlacementManager().onClientChunkUnload(packet.pos().x, packet.pos().z);
+            Litematica.debugLog("MixinClientPlayNetworkHandler#litematica_onChunkUnload({}, {})", packet.getX(), packet.getZ());
+            DataManager.getSchematicPlacementManager().onClientChunkUnload(packet.getX(), packet.getZ());
         }
     }
 
@@ -56,9 +56,9 @@ public abstract class MixinClientPlayNetworkHandler
     }
 
     @Inject(method = "onCustomPayload", at = @At("HEAD"))
-    private void litematica_onCustomPayload(CustomPayload payload, CallbackInfo ci)
+    private void litematica_onCustomPayload(CustomPayloadS2CPacket payload, CallbackInfo ci)
     {
-        if (CarpetHelloPacketHandler.HELLO_CHANNEL.equals(payload.id()))
+        if (CarpetHelloPacketHandler.HELLO_CHANNEL.equals(payload.getChannel()))
         {
             DataManager.setIsCarpetServer(true);
         }

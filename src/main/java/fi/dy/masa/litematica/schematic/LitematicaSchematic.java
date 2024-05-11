@@ -795,7 +795,7 @@ public class LitematicaSchematic
     public static boolean isGravityBlock(BlockState state)
     {
         return state.isIn(BlockTags.SAND) ||
-               state.isIn(BlockTags.CONCRETE_POWDER) ||
+//               state.isIn(BlockTags.CONCRETE_POWDER) ||
                state.getBlock() == Blocks.GRAVEL;
     }
 

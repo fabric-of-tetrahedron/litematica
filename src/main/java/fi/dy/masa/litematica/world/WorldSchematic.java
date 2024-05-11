@@ -45,7 +45,6 @@ import net.minecraft.world.entity.EntityLookup;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.tick.EmptyTickSchedulers;
 import net.minecraft.world.tick.QueryableTickScheduler;
-import net.minecraft.world.tick.TickManager;
 
 import fi.dy.masa.litematica.Reference;
 import fi.dy.masa.litematica.render.schematic.WorldRendererSchematic;
@@ -60,7 +59,7 @@ public class WorldSchematic extends World
     @Nullable protected final WorldRendererSchematic worldRenderer;
     protected int nextEntityId;
     protected int entityCount;
-    private final TickManager tickManager;
+//    private final TickManager tickManager;
 
     public WorldSchematic(MutableWorldProperties properties,
                           RegistryEntry<DimensionType> dimension,
@@ -73,7 +72,7 @@ public class WorldSchematic extends World
         this.worldRenderer = worldRenderer;
         this.chunkManagerSchematic = new ChunkManagerSchematic(this);
         this.biome = this.mc.world.getRegistryManager().get(RegistryKeys.BIOME).entryOf(BiomeKeys.PLAINS);
-        this.tickManager = new TickManager();
+//        this.tickManager = new TickManager();
     }
 
     public ChunkManagerSchematic getChunkProvider()
@@ -87,11 +86,11 @@ public class WorldSchematic extends World
         return this.chunkManagerSchematic;
     }
 
-    @Override
-    public TickManager getTickManager()
-    {
-        return this.tickManager;
-    }
+//    @Override
+//    public TickManager getTickManager()
+//    {
+//        return this.tickManager;
+//    }
 
     @Override
     public QueryableTickScheduler<Block> getBlockTickScheduler()

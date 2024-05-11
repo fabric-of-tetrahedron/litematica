@@ -97,7 +97,7 @@ public class NbtUtils
         {
             try
             {
-                nbt = NbtIo.readCompressed(is, NbtTagSizeTracker.ofUnlimitedBytes());
+                nbt = NbtIo.readCompressed(is);
             }
             catch (Exception e)
             {
@@ -105,7 +105,7 @@ public class NbtUtils
                 {
                     is.close();
                     is = new FileInputStream(file);
-                    nbt = NbtIo.read(file.toPath());
+                    nbt = NbtIo.read(file);
                 }
                 catch (Exception ignore) {}
             }

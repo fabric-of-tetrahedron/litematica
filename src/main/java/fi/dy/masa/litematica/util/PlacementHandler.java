@@ -55,7 +55,7 @@ public class PlacementHandler
             Properties.DOOR_HINGE,
             Properties.SLAB_TYPE,
             Properties.STAIR_SHAPE,
-            Properties.BLOCK_FACE,
+            Properties.WALL_MOUNT_LOCATION,
             // IntProperty:
             // BITES - Cake
             // DELAY - Repeater

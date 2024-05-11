@@ -171,7 +171,7 @@ public class SchematicConversionFixers
         return state;
     };
 
-    public static final IStateFixer FIXER_CHRORUS_PLANT = (reader, state, pos) -> ChorusPlantBlock.withConnectionProperties(reader, pos, state);
+    public static final IStateFixer FIXER_CHRORUS_PLANT = (reader, state, pos) -> ((ChorusPlantBlock)state.getBlock()).withConnectionProperties(reader, pos);
 
     public static final IStateFixer FIXER_DIRT_SNOWY = (reader, state, pos) -> {
         Block block = reader.getBlockState(pos.up()).getBlock();
